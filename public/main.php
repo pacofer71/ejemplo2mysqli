@@ -55,7 +55,17 @@
                     <td>{$fila['nombre']}</td>
                     <td>{$fila['precio']} €</td>
                     <td class="$color"><b>{$fila['enVenta']}</b></td>
-                    <td>Acciones</td>
+                    <td>
+                    <form method="POST" action="borrar.php">
+                    <input type="hidden" name="id" value="{$fila['id']}" />
+                    <a href="update.php?id={$fila['id']}" class="btn btn-sm btn-warning">
+                    <i class='fas fa-edit'></i>
+                    </a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                    <i class="fas fa-trash"></i>
+                    </button> 
+                    </form>
+                    </td>
                 </tr>
                 TXT;
                 }
@@ -64,6 +74,21 @@
             </tbody>
         </table>
     </div>
+    <?php
+        if(isset($_SESSION['mensaje'])){
+            echo <<< TXT
+            <script>
+            Swal.fire({
+                icon: 'success',
+                title: '{$_SESSION['mensaje']}',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+            TXT;
+            unset($_SESSION['mensaje']);
+        }
+    ?>
 </body>
 
 </html>
